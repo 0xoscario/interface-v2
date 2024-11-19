@@ -3,7 +3,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Typography,
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
@@ -16,13 +15,12 @@ import { formatDateFromTimeStamp, formatNumber, getEtherscanLink } from 'utils';
 import { formatCurrencyAmount } from 'utils/v3/formatCurrencyAmount';
 import { fromRawAmount, makeElipsisAddress } from '../../utils';
 import {
-  useCancelOrder,
   useOrderTitle,
   useTwapOrderCurrency,
   useTwapOrdersQuery,
 } from '../hooks';
 import { OrderDetails } from '../Components/OrderDetails';
-import { Order, OrderStatus } from '@orbs-network/twap-sdk';
+import { Order } from '@orbs-network/twap-sdk';
 
 interface ContextType {
   selectedOrder: Order;
@@ -69,7 +67,6 @@ export function TwapSelectedOrder({
         <Box className='TwapSelectedOrderBody'>
           <Currencies />
           <Accordions />
-          <CancelButton />
         </Box>
       </Box>
     </ContextProvider>
@@ -280,28 +277,6 @@ const CreatedAt = () => {
         'MMM DD, YYYY HH:mm',
       )} UTC`}
     />
-  );
-};
-
-const CancelButton = () => {
-  const { selectedOrder } = useSelectedOrderContext();
-  const { t } = useTranslation();
-  const { mutate: cancelOrder, isLoading } = useCancelOrder();
-
-  if (selectedOrder.status !== OrderStatus.Open) return null;
-
-  return (
-    <Box className='swapButtonWrapper'>
-      <Box width={'100%'}>
-        <Button
-          disabled={isLoading}
-          fullWidth
-          onClick={() => cancelOrder(selectedOrder.id)}
-        >
-          {isLoading ? t('loading') : t('cancelOrder')}
-        </Button>
-      </Box>
-    </Box>
   );
 };
 

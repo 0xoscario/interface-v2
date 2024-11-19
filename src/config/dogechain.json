@@ -9,7 +9,7 @@
   "isMainnet": true,
   "visible": true,
   "chainId": 2000,
-  "nativeCurrencyImage": "/dogechain/image.png",
+  "nativeCurrencyImage": "/doge.png",
   "nativeCurrency": {
     "name": "Wrapped Doge",
     "symbol": "WDOGE",

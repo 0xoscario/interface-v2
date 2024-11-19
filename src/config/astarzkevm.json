@@ -9,7 +9,7 @@
   "chainId": 3776,
   "isMainnet": true,
   "visible": true,
-  "nativeCurrencyImage": "/astar-zkevm/image.png",
+  "nativeCurrencyImage": "/astarzkevm.png",
   "nativeCurrency": {
     "name": "Ether",
     "symbol": "ETH",

@@ -9,7 +9,7 @@
   "chainId": 169,
   "isMainnet": true,
   "visible": true,
-  "nativeCurrencyImage": "/manta/image.png",
+  "nativeCurrencyImage": "/manta.svg",
   "nativeCurrency": {
     "name": "Ether",
     "symbol": "ETH",

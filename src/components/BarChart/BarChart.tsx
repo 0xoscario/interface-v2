@@ -20,17 +20,9 @@ const BarChart: React.FC<BarChartProps> = ({
   onMouseLeave,
 }) => {
   const maxValue = Math.max(...data);
-  const areaWidth =
-    categories && categories.length > 12
-      ? 23 * categories.length + 'px'
-      : '100%';
-  console.log('areaWidth', areaWidth);
   return (
-    <Box onMouseLeave={onMouseLeave} overflow='auto' paddingBottom={2}>
-      <Box
-        className='flex items-end justify-between'
-        width={`calc(${areaWidth})`}
-      >
+    <Box onMouseLeave={onMouseLeave}>
+      <Box className='flex items-end justify-between'>
         {data.map((value, index) => (
           <Box
             key={index}
@@ -42,7 +34,7 @@ const BarChart: React.FC<BarChartProps> = ({
         ))}
       </Box>
       {categories && data.length > 0 && (
-        <Box className={`categoryValues`} mt={2} gridGap={2}>
+        <Box className={`categoryValues`} mt={2}>
           {categories.map((val, ind) => (
             <p key={ind}>{val}</p>
           ))}

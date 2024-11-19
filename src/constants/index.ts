@@ -66,8 +66,6 @@ export const CEX_BILL_ADDRESS = '0x6D7637683eaD28F775F56506602191fdE417fF60';
 
 export const AVERAGE_L1_BLOCK_TIME = 12000;
 
-export const DRAGON_EGGS_SHOW = false;
-
 export const merklAMMs: { [chainId in ChainId]?: string[] } = {
   [ChainId.MATIC]: ['quickswapalgebra'],
   [ChainId.ZKEVM]: ['quickswapalgebra', 'quickswapuni'],
@@ -330,6 +328,7 @@ export const GlobalConst = {
     UNIPILOT_RANGE: '2',
     DEFIEDGE_RANGE: '3',
     STEER_RANGE: '4',
+    ALGEBRA_INTEGRAL: '5',
   },
   walletName: {
     METAMASK: 'Metamask',
@@ -366,18 +365,18 @@ export const DEFAULT_LIST_OF_LISTS: string[] = [
 
 export const SUPPORTED_CHAINIDS = [
   ChainId.MATIC,
+  ChainId.ETHEREUM,
   ChainId.ZKEVM,
   ChainId.MANTA,
-  ChainId.LAYERX,
-  ChainId.DOGECHAIN,
-  ChainId.ETHEREUM,
   ChainId.IMX,
   ChainId.ASTARZKEVM,
+  ChainId.DOGECHAIN,
+  ChainId.LAYERX,
   ChainId.ZKATANA,
+  ChainId.X1,
   ChainId.TIMX,
   ChainId.ZKTESTNET,
   ChainId.MUMBAI,
-  ChainId.X1,
   ChainId.DOEGCHAIN_TESTNET,
   ChainId.MINATO,
 ];
@@ -2358,7 +2357,6 @@ export const IchiVaults: {
     '0xb4eac29e630e38133e015ad17e3986886d5e8b35',
     '0xc0892aD9148b6A6520698BA0079E92242435bF7b',
     '0x24091dAe5CEBbb3ebb52A786716015B83FBe3fe5',
-    '0x4A14Af94ee033E1B51430f314C9B049672Ae9203',
   ],
 };
 

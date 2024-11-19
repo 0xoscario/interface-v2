@@ -7,7 +7,7 @@
   "isMainnet": true,
   "visible": true,
   "networkName": "Ethereum",
-  "nativeCurrencyImage": "/ethereum/image.png",
+  "nativeCurrencyImage": "/ETH.png",
   "nativeCurrency": {
     "name": "Ethereum",
     "symbol": "ETH",

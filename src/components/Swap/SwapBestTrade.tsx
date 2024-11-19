@@ -67,7 +67,6 @@ import {
   paraswapTaxBuy,
   RouterTypes,
   SmartRouter,
-  DRAGON_EGGS_SHOW,
 } from 'constants/index';
 import { useQuery } from '@tanstack/react-query';
 import { useAllTokens, useCurrency } from 'hooks/Tokens';
@@ -1514,8 +1513,7 @@ const SwapBestTrade: React.FC<{
           console.log('sub');
         }}
       />
-      {DRAGON_EGGS_SHOW && <Eggs type={2}></Eggs>}
-
+      <Eggs type={2}></Eggs>
       {isLiquidityHubOnly && <PoweredByOrbs />}
     </Box>
   );

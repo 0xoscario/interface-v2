@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   MIN_FILL_DELAY_MINUTES,
   MAX_FILL_DELAY_DAYS,
@@ -7,8 +7,6 @@ import {
   zeroAddress,
   Order,
   OrderType,
-  TwapAbi,
-  OrderStatus,
 } from '@orbs-network/twap-sdk';
 import { ChainId, Currency, currencyEquals, ETHER } from '@uniswap/sdk';
 import { useActiveWeb3React } from 'hooks';
@@ -26,8 +24,6 @@ import { SwapSide } from '@paraswap/sdk';
 import { paraswapTaxBuy, paraswapTaxSell } from 'constants/index';
 import { getBestTradeCurrencyAddress, useParaswap } from 'hooks/useParaswap';
 import { tryParseAmount } from 'state/swap/hooks';
-import { useContract } from 'hooks/useContract';
-import { calculateGasMargin } from 'utils';
 
 export const useInputError = () => {
   const { account } = useActiveWeb3React();
@@ -200,10 +196,9 @@ export const useTwapOrdersQuery = () => {
   return useMemo(() => {
     return {
       ...query,
-      queryKey,
       fetchUpdatedOrders,
     };
-  }, [query, fetchUpdatedOrders, queryKey]);
+  }, [query, fetchUpdatedOrders]);
 };
 
 export const useGrouppedTwapOrders = () => {
@@ -391,50 +386,4 @@ export const useInputTitle = () => {
     inInputTitle: isLimitPanel ? t('sell') : `${t('allocate')}`,
     outInputTitle: isLimitPanel ? t('buy') : `${t('toBuy')}`,
   };
-};
-
-const useUpdateCancelledOrderCallback = () => {
-  const { queryKey, data: orders } = useTwapOrdersQuery();
-  const queryClient = useQueryClient();
-  return useCallback(
-    (orderId: number) => {
-      const updatedOrders = orders?.map((order) => {
-        if (order.id === orderId) {
-          return { ...order, status: OrderStatus.Canceled };
-        }
-        return order;
-      });
-      queryClient.setQueryData(queryKey, updatedOrders);
-    },
-    [orders, queryClient, queryKey],
-  );
-};
-
-export const useCancelOrder = (onSuccess?: () => void) => {
-  const { twapSDK } = useTwapContext();
-  const onOrderCancelled = useUpdateCancelledOrderCallback();
-  const tokenContract = useContract(twapSDK.config.twapAddress, TwapAbi);
-
-  return useMutation({
-    mutationFn: async (orderId: number) => {
-      if (!tokenContract) {
-        throw new Error('Missing tokenContract');
-      }
-      twapSDK.analytics.onCancelOrderRequest(orderId);
-      const gasEstimate = await tokenContract.estimateGas.cancel(orderId);
-      const txResponse = await tokenContract.functions.cancel(orderId, {
-        gasLimit: calculateGasMargin(gasEstimate),
-      });
-
-      const txReceipt = await txResponse.wait();
-      twapSDK.analytics.onCancelOrderSuccess();
-      onOrderCancelled(orderId);
-      onSuccess?.();
-      return txReceipt;
-    },
-    onError: (error) => {
-      twapSDK.analytics.onCancelOrderError(error);
-      throw error;
-    },
-  });
 };

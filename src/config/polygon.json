@@ -8,7 +8,7 @@
   "isMainnet": true,
   "visible": true,
   "networkName": "Polygon",
-  "nativeCurrencyImage": "/polygon/image.png",
+  "nativeCurrencyImage": "/polygon-pos.svg",
   "nativeCurrency": {
     "name": "Matic Token",
     "symbol": "MATIC",
